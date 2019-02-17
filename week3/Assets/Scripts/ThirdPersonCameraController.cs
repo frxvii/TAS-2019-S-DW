@@ -23,6 +23,9 @@ public class ThirdPersonCameraController : MonoBehaviour {
     public float fovAtUp;
     public float fovAtDown;
     public float _searchRadius;
+    public float idleTime;
+    
+    
     #endregion
 
     #region Persistent Outputs
@@ -47,23 +50,31 @@ public class ThirdPersonCameraController : MonoBehaviour {
 
         _avatarTransform = _view.Find("AIThirdPersonController");
         _avatarRigidbody = _avatarTransform.GetComponent<Rigidbody>();
+        idleTime = 0f;
+        
     }
 
     private void Update()
     {
+        
         if (Input.GetMouseButton(1))
             _ManualUpdate();
         else
             _AutoUpdate();
-        Collider[] colliders =
-            Physics.OverlapSphere(_avatarTransform.position, _searchRadius, LayerMask.NameToLayer("ObjectOfInterest"));
-        if (colliders.Length <= 0)
-            return ;
-        for (int i = 0; i < colliders.Length; i++)
-            print(colliders[i].gameObject.name);
+
         
-        
-            
+        print(_Helper_IsIdle());
+        /* //print(_Helper_IsIdle());
+        _currentPos = _avatarTransform.position;
+        //print("last="+ _lastPos);
+        //print("current="+ _currentPos);
+        if (_lastPos == _currentPos)
+            idleTime = idleTime + Time.deltaTime;
+        else
+            idleTime = 0f;
+        _lastPos = _currentPos;
+        print(idleTime);*/
+
     }
 
     #region States
@@ -77,6 +88,10 @@ public class ThirdPersonCameraController : MonoBehaviour {
     {
         _FollowAvatar();
         _ManualControl();
+    }
+    private void _IdleUpdate()
+    {
+
     }
     #endregion
 
@@ -105,6 +120,8 @@ public class ThirdPersonCameraController : MonoBehaviour {
 
         _followDistance_Applied = Mathf.Lerp(_followDistance_Standing, _followDistance_Walking, _standingToWalkingSlider);
         _verticalOffset_Applied = Mathf.Lerp(_verticalOffset_Standing, _verticalOffset_Walking, _standingToWalkingSlider);
+
+        
     }
 
     private void _FollowAvatar()
@@ -165,13 +182,31 @@ public class ThirdPersonCameraController : MonoBehaviour {
     private Vector3 _lastPos;
     private Vector3 _currentPos;
     private Transform _Helper_WhatIsClosest;
+    
+    
+    
+
+    private bool _Helper_IsIdle()
+
+    {
+        _currentPos = _avatarTransform.position;
+        if (_lastPos == _currentPos)
+            idleTime = idleTime + Time.deltaTime;
+        else
+            idleTime = 0f;
+        _lastPos = _currentPos;
+        if (idleTime > 2.0f)
+            return true;
+        else return false;
+    }
+
     private bool _Helper_IsWalking()
     
     {
         _lastPos = _currentPos;
         _currentPos = _avatarTransform.position;
         float velInst = Vector3.Distance(_lastPos, _currentPos) / Time.deltaTime;
-
+        
         if (velInst > .15f)
             return true;
         else return false;
