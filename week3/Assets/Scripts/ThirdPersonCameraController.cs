@@ -56,24 +56,20 @@ public class ThirdPersonCameraController : MonoBehaviour {
 
     private void Update()
     {
-        
-        if (Input.GetMouseButton(1))
+        if (_Helper_IsIdle())
+            _IdleUpdate();
+        else if (Input.GetMouseButton(1))
             _ManualUpdate();
         else
             _AutoUpdate();
 
         
         print(_Helper_IsIdle());
-        /* //print(_Helper_IsIdle());
-        _currentPos = _avatarTransform.position;
-        //print("last="+ _lastPos);
-        //print("current="+ _currentPos);
-        if (_lastPos == _currentPos)
-            idleTime = idleTime + Time.deltaTime;
-        else
-            idleTime = 0f;
-        _lastPos = _currentPos;
-        print(idleTime);*/
+        
+        
+        
+        
+            
 
     }
 
@@ -91,7 +87,9 @@ public class ThirdPersonCameraController : MonoBehaviour {
     }
     private void _IdleUpdate()
     {
-
+        _ComputeData();
+        
+        //_ManualControl();
     }
     #endregion
 
@@ -149,13 +147,22 @@ public class ThirdPersonCameraController : MonoBehaviour {
         for (int i = 0; i < colliders.Length; i++)
             print(colliders[i].gameObject.name);
     }
-    
-    
-    
     private void _ManualControl()
     {
-        Vector3 _camEulerHold = _cameraTransform.localEulerAngles;
+        //transform.RotateAround : move the axis to target.postion, then rotate along this axis.
+        //characters barely rotate vertically, so the world axis if fine in y axis.
+        _cameraTransform.transform.RotateAround (_avatarTransform.position, Vector3.up, Input.GetAxis("Mouse X"));
+        //because target's local x axis changes, after the character moves. (when a character moves, its face direction rotates)
+        //use local instead of world axis.
+        _cameraTransform.transform.RotateAround (_avatarTransform.position, _cameraTransform.transform.right, -1f * Input.GetAxis("Mouse Y"));
 
+    }
+    
+    
+    /*private void _ManualControl()
+    {
+        Vector3 _camEulerHold = _cameraTransform.localEulerAngles;
+        
         if (Input.GetAxis("Mouse X") != 0)
             _camEulerHold.y += Input.GetAxis("Mouse X");
 
@@ -174,7 +181,8 @@ public class ThirdPersonCameraController : MonoBehaviour {
 
         Debug.Log("The V3 to be applied is " + _camEulerHold);
         _cameraTransform.localRotation = Quaternion.Euler(_camEulerHold);
-    }
+        
+    }*/
     #endregion
 
     #region Helper Functions
@@ -182,15 +190,15 @@ public class ThirdPersonCameraController : MonoBehaviour {
     private Vector3 _lastPos;
     private Vector3 _currentPos;
     private Transform _Helper_WhatIsClosest;
-    
-    
+    private Vector3 lastWalk;
+    private Vector3 currentWalk;
     
 
     private bool _Helper_IsIdle()
 
     {
         _currentPos = _avatarTransform.position;
-        if (_lastPos == _currentPos)
+        if (_lastPos == _currentPos && !Input.GetMouseButton(1))
             idleTime = idleTime + Time.deltaTime;
         else
             idleTime = 0f;
@@ -203,13 +211,13 @@ public class ThirdPersonCameraController : MonoBehaviour {
     private bool _Helper_IsWalking()
     
     {
-        _lastPos = _currentPos;
-        _currentPos = _avatarTransform.position;
-        float velInst = Vector3.Distance(_lastPos, _currentPos) / Time.deltaTime;
-        
-        if (velInst > .15f)
-            return true;
-        else return false;
+        lastWalk = currentWalk;
+        currentWalk = _avatarTransform.position;
+        float velInst = Vector3.Distance(lastWalk, currentWalk) / Time.deltaTime;
+        //lastWalk = currentWalk;
+        if (velInst > 0.15f)
+            return false;
+        else return true;
     }
 
     private bool _Help_IsThereOOI()
