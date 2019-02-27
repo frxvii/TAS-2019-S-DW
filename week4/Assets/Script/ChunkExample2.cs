@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChunkExample2 : MonoBehaviour
+public class ChunkExample : MonoBehaviour
 {
     private MeshFilter _myMF;
     private MeshRenderer _myMR;
