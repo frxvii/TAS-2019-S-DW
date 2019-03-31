@@ -11,7 +11,8 @@ public class Noise : MonoBehaviour
     // different octaves can persent large mountains, boulders and rocks
     // persistance controls decrease in amplitude of octaves
     // seed is the index of a random map, if you want to the same map, use the same seed
-    public static float[,] GenerateNoiseMap(int mapW, int mapH, int seed, float scale , int octaves, float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode)
+    public static float[,] GenerateNoiseMap(int mapW, int mapH, int seed, float scale , int octaves, 
+        float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode)
     {
         float[,] noiseMap = new float[mapW, mapH];
 
