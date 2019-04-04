@@ -4,6 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 public class FlockAgent : MonoBehaviour
 {
+    Flock agentFlock;
+    public Flock AgentFlock {get { return agentFlock; }}
+    
     Collider agentCollider;
     public Collider AgentCollider { get { return agentCollider; } }
     
@@ -13,6 +16,10 @@ public class FlockAgent : MonoBehaviour
         agentCollider = GetComponent<Collider>();
     }
 
+    public void Initialize(Flock flock)
+    {
+        agentFlock = flock;
+    }
     public void Move(Vector3 velocity)
     {
         transform.forward = velocity;

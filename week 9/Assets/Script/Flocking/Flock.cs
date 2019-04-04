@@ -37,6 +37,7 @@ public class Flock : MonoBehaviour
                 transform
                 ); // The z rotation of a fish should not be too much, since a live fish's fin is always pointing up.
             newAgent.name = "Agent " + i;
+            newAgent.Initialize(this);
             agents.Add(newAgent);
         }
     }
@@ -61,7 +62,7 @@ public class Flock : MonoBehaviour
     List<Transform> GetNearbyObjects(FlockAgent agent)
     {
         List<Transform> context = new List<Transform>();
-        Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, neighborRadius);
+        Collider[] contextColliders = Physics.OverlapSphere(agent.transform.position, neighborRadius); // Detect other agents around
         foreach (Collider c in contextColliders)
         {
             if (c != agent.AgentCollider)
