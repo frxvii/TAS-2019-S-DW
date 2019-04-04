@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AutoAgentBehavior : MonoBehaviour
 {
-    public Vector3 moveDirection;
+    private Vector3 moveDirection;
     public float moveVelocityMagnitude;
     
     public Transform myModelTransform;
@@ -12,10 +12,11 @@ public class AutoAgentBehavior : MonoBehaviour
     [Range(0.0f, 1.0f)]public float alignStrength;
     [Range(0.0f, 1.0f)]public float avoidStrength;
     [Range(0.0f, 1.0f)]public float originStrength;
+    
     // Start is called before the first frame update
     void Start()
     {
-        moveDirection = Vector3.Normalize(Random.insideUnitSphere);
+        //moveDirection = Vector3.Normalize(Random.insideUnitSphere);
         myModelTransform = transform.GetChild(0);
     }
 
@@ -23,6 +24,12 @@ public class AutoAgentBehavior : MonoBehaviour
 
     public void PassArrayOfContext (Collider[] context)
     {
+        List<Collider> contextWithoutMe = new List<Collider>();
+        foreach (Collider c in context)
+        {
+            if (c.gameObject != gameObject)
+                contextWithoutMe.Add(c);
+        }
         // use context
         CalcMyDir(context);
         MoveInMyAssignedDirection(moveDirection, moveVelocityMagnitude);
@@ -34,7 +41,7 @@ public class AutoAgentBehavior : MonoBehaviour
                                 Align(context) * alignStrength + 
                                 Avoidance(context) * avoidStrength + 
                                 MoveTowardsOrigin() * originStrength * Vector3.Magnitude(transform.position)/500), 
-                                0.05f);
+                                0.02f);
         
         
         
@@ -72,13 +79,6 @@ public class AutoAgentBehavior : MonoBehaviour
 
     Vector3 Avoidance (Collider[] context)
     {
-        List<Collider> contextWithoutMe = new List<Collider>();
-        foreach (Collider c in context)
-        {
-            if (c.gameObject != gameObject)
-                contextWithoutMe.Add(c);
-        }
-        
         Vector3 midpoint = Vector3.zero;
 
         foreach (Collider c in context)

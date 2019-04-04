@@ -17,7 +17,7 @@ public class FlockManager : MonoBehaviour
 
         for (int i = 0; i < numberOfSpawns; i++)
         {
-            _allMyAgents.Add(Instantiate(myAutoAgentPrefab, Random.insideUnitSphere * numberOfSpawns, Quaternion.identity, transform));
+            _allMyAgents.Add(Instantiate(myAutoAgentPrefab, Random.insideUnitSphere * r, Quaternion.identity, transform));
         }
     }
 
@@ -30,7 +30,7 @@ public class FlockManager : MonoBehaviour
             
             Physics.OverlapSphereNonAlloc(g.transform.position, 5, collInRad);
 
-            // Currently getting a ref tot itself so may do something weird
+            // Currently getting a ref to itself so may do something weird
 
             a.PassArrayOfContext(collInRad);
         }

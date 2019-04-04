@@ -77,7 +77,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.79
-  m_Center: {x: 0, y: 0, z: 0.42}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1481030932829474384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,9 +90,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9352e3c5e08295049bb040353556c755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: {x: 0, y: 0, z: 0}
-  moveVelocityMagnitude: 0
+  moveVelocityMagnitude: 4.08
   myModelTransform: {fileID: 0}
+  clumpStrength: 0.3
+  alignStrength: 0.4
+  avoidStrength: 0.78
+  originStrength: 0.25
 --- !u!1 &6511365597566660071
 GameObject:
   m_ObjectHideFlags: 0
