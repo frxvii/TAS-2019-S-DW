@@ -14,8 +14,8 @@ public class AlignmentBehavior : FilteredFlockBehavior
 
         // add all vectors together and average 
         Vector3 alignmentMove = Vector3.zero;
-        List<Transform> filterContext = (filter == null) ? context : filter.Filter(agent, context);
-        foreach (Transform item in filterContext)
+        List<Transform> filteredContext = (filter == null) ? context : filter.Filter(agent, context);
+        foreach (Transform item in filteredContext)
         {
             alignmentMove += item.transform.forward;
         }

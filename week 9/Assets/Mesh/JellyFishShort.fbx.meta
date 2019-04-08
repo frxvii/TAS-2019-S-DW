@@ -1,54 +1,14 @@
 fileFormatVersion: 2
-guid: ce1a34160de153f43b7dc2537ed6f140
+guid: ffdedf1b1a77463439a0c8accf4be9c1
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pPlane1
-    100004: pPlane2
-    100006: pPlane3
-    100008: pPlane4
-    100010: pPlane5
-    100012: pPlane6
-    100014: pPlane7
-    100016: pSphere1
     400000: //RootNode
-    400002: pPlane1
-    400004: pPlane2
-    400006: pPlane3
-    400008: pPlane4
-    400010: pPlane5
-    400012: pPlane6
-    400014: pPlane7
-    400016: pSphere1
-    2100000: lambert1
-    2300000: pPlane1
-    2300002: pPlane2
-    2300004: pPlane3
-    2300006: pPlane4
-    2300008: pPlane5
-    2300010: pPlane6
-    2300012: pPlane7
-    2300014: pSphere1
-    2300016: //RootNode
-    3300000: pPlane1
-    3300002: pPlane2
-    3300004: pPlane3
-    3300006: pPlane4
-    3300008: pPlane5
-    3300010: pPlane6
-    3300012: pPlane7
-    3300014: pSphere1
-    3300016: //RootNode
-    4300000: pSphere1
-    4300002: pPlane1
-    4300004: pPlane2
-    4300006: pPlane3
-    4300008: pPlane4
-    4300010: pPlane5
-    4300012: pPlane6
-    4300014: pPlane7
-    4300016: pPlane8
+    2100000: lambert2
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: polySurface21
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -80,7 +40,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 101
+    globalScale: 75
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1

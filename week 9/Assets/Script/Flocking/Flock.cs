@@ -7,12 +7,12 @@ public class Flock : MonoBehaviour
     public FlockAgent agentPrefab;
     List<FlockAgent> agents = new List<FlockAgent>();
     public FlockBehavior behavior;
-    [Range(10, 500)]public int startCount = 250;
+    [Range(5, 500)]public int startCount = 250;
     const float AgentDensity = 0.08f;
     [Range(1f, 100f)]public float driveFactor = 10f; // a paramter that can make the agent move faster
     [Range(1f, 100f)]public float maxSpeed = 5f; // The hightest spped a agent can have
     [Range(1f, 10f)]public float neighborRadius = 1.5f;
-    [Range(0f, 1f)]public float avoidanceRadiusMultiplier = 0.5f;
+    [Range(0f, 3f)]public float avoidanceRadiusMultiplier = 0.5f;
 
 
     float squareMaxSpeed;

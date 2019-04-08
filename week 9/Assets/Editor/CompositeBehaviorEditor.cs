@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-[CustomEditor(typeof(CompositeBehavior))]
 
+[CustomEditor(typeof(CompositeBehavior))]
 public class CompositeBehaviorEditor : Editor
 {
     public override void OnInspectorGUI()
     {
-        // setup
+        //setup
         CompositeBehavior cb = (CompositeBehavior)target;
 
-        Rect r = EditorGUILayout.BeginHorizontal(); // initial position for the cursor
-        r.height = EditorGUIUtility.singleLineHeight; // height of text
+        Rect r = EditorGUILayout.BeginHorizontal();
+        r.height = EditorGUIUtility.singleLineHeight;
 
-        // check for behaviors
+        //check for behaviors
         if (cb.behaviors == null || cb.behaviors.Length == 0)
         {
             EditorGUILayout.HelpBox("No behaviors in array.", MessageType.Warning);
@@ -25,11 +25,11 @@ public class CompositeBehaviorEditor : Editor
         else
         {
             r.x = 30f;
-            r.width = EditorGUIUtility.currentViewWidth - 95f; // pixels
+            r.width = EditorGUIUtility.currentViewWidth - 95f;
             EditorGUI.LabelField(r, "Behaviors");
-            r.x = EditorGUIUtility.currentViewWidth -65f;
+            r.x = EditorGUIUtility.currentViewWidth - 65f;
             r.width = 60f;
-            EditorGUI.LabelField(r, "weights");
+            EditorGUI.LabelField(r, "Weights");
             r.y += EditorGUIUtility.singleLineHeight * 1.2f;
 
             EditorGUI.BeginChangeCheck();
@@ -51,17 +51,15 @@ public class CompositeBehaviorEditor : Editor
                 EditorUtility.SetDirty(cb);
             }
         }
+
         EditorGUILayout.EndHorizontal();
         r.x = 5f;
         r.width = EditorGUIUtility.currentViewWidth - 10f;
         r.y += EditorGUIUtility.singleLineHeight * 0.5f;
-
         if (GUI.Button(r, "Add Behavior"))
         {
-            // add behavior
             AddBehavior(cb);
             EditorUtility.SetDirty(cb);
-
         }
 
         r.y += EditorGUIUtility.singleLineHeight * 1.5f;
@@ -69,12 +67,12 @@ public class CompositeBehaviorEditor : Editor
         {
             if (GUI.Button(r, "Remove Behavior"))
             {
-                // remove behavior
                 RemoveBehavior(cb);
                 EditorUtility.SetDirty(cb);
             }
         }
-        
+
+
     }
 
     void AddBehavior(CompositeBehavior cb)
