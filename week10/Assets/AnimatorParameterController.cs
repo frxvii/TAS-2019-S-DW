@@ -39,7 +39,7 @@ public class AnimatorParameterController : MonoBehaviour
             _myAnimator.SetBool("Idle_False_Move_True", false);
 
         idleTime += Time.deltaTime * 6;
-        _myAnimator.SetFloat("Idle_TreeVal_X", (Mathf.Sin(idleTime)+1)/2);
+        _myAnimator.SetFloat("Idle_TreeVal_X", (Mathf.Sin(idleTime)+1)/0.2f);
   
 
 
